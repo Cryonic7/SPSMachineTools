@@ -51,7 +51,7 @@ namespace Wallpaper
 
 $done = $FALSE
 while($done -eq $FALSE){
-    $title = "Wallpaper Changer and other Tools Menu, Version 6.1"
+    $title = "Wallpaper Changer and other Tools Menu, Version 6.3"
     $message = "`nThe tools included in this script are as follows:`nWallpaper Changer`nImage type converter[NONFUNCTIONAL]`n`n"
 
     #CURRENT OPTIONS BEGIN
@@ -81,13 +81,26 @@ while($done -eq $FALSE){
             $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
             $title = "Is this filename correct?"
             $result = $Host.UI.PromptForChoice($title,$filename,$options, 0)
+            $Drive = ""
             switch ($result){
                 0 {
                     Write-Host "Initiating Changes..."
+                    if (Test-Path H:\){
+                        Write-Host "`nH:\ Drive exists, Writing...`n"
+                        $Drive = "H:\"
+                        Break
+                    }if 
+                    ### for H: drive systems, school systems
+                    #del H:\wallpaper.bmp
+                    #xcopy .\wallpaper.bmp H:\
+                    #[Wallpaper.Setter]::SetWallpaper( 'H:\wallpaper.bmp', 2 )
+                    #del H:\wallpaper.bmp
+
+                    ### for C drive systems, testing system
                     #del C:\Users\$env:USERNAME\Documents\$filename.bmp
-                    xcopy .\$filename.bmp C:\Users\$env:USERNAME\Documents\$filename.bmp
-                    [Wallpaper.Setter]::SetWallpaper( ('C:\Users\' + $env:USERNAME + '\Documents\' + $filename + '.bmp'), 2 )
-                    del C:\Users\$env:USERNAME\Documents\$filename.bmp
+                    #xcopy .\$filename.bmp C:\Users\$env:USERNAME\Documents\$filename.bmp
+                    #[Wallpaper.Setter]::SetWallpaper( ('C:\Users\' + $env:USERNAME + '\Documents\' + $filename + '.bmp'), 2 )
+                    #del C:\Users\$env:USERNAME\Documents\$filename.bmp
                 }
                 1 {
                     Write-Host "`nAborting..."
@@ -95,8 +108,6 @@ while($done -eq $FALSE){
                 }
             }
         }
-
-
         #Exiting Script
         1 {
         Write-Host "Thank you for using a Hypersleep Developments Tool, we wish you well in the future"
