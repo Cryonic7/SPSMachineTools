@@ -53,7 +53,7 @@ Set-ExecutionPolicy -Scope CurrentUser unrestricted
 cls
 $done = $FALSE
 while($done -eq $FALSE){
-    $title = "Wallpaper Changer and other Tools Menu, Version 6.5"
+    $title = "Wallpaper Changer and other Tools Menu, Version 7.0"
     $message = "`nThe tools included in this script are as follows:`nWallpaper Changer`n`n"
     ##options are:
     ##WallpaperChanger
@@ -84,16 +84,20 @@ while($done -eq $FALSE){
     {
         #changing the wallpaper
         0 {
-            Write-Host "`nYou have selected to change your wallpaper, so please input the filename of your wallpaper. WARNING, the image file MUST be in BMP format or it will not work. ALSO, only type the filename, and do not at the extension, as in 'wallpaper' instead of 'wallpaper.bmp'`n"
+            Write-Host "`nYou have selected to change your wallpaper, so please input the filename of your wallpaper, and ONLY the filename without file type extension"# WARNING, the image file MUST be in BMP format or it will not work. ALSO, only type the filename, and do not at the extension, as in 'wallpaper' instead of 'wallpaper.bmp'`n"
             $filename = Read-Host -Prompt "Filename"
+            Write-Host "`nPlease type the file type, such as .jpg, .bmp, .png, etc`n"
+            $filetype = Read-Host -Prompt "Filetype"
             $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
+            $library = ".\PicturesLibrary\"
             $title = "Is this filename correct?"
-            $result = $Host.UI.PromptForChoice($title,($filename + ".bmp"),$options, 0)
-            if (-Not (Test-Path (".\" + $filename + ".bmp"))){
-                Write-Host "The selected filename does not exist, aborting..."
+            $result = $Host.UI.PromptForChoice($title,($filename + $filetype),$options, 0)
+            if (-Not (Test-Path ($library + $filename + $filetype))){
+                Write-Host "The selected file does not exist, aborting..."
                 Break
             }
             $Drive = ""
+            $FileFinal = ""
             switch ($result){
                 0 {
                     Write-Host "Initiating Changes..."
@@ -101,16 +105,48 @@ while($done -eq $FALSE){
                     if ((Test-Path H:\) -and ($ifdone -eq $FALSE)){
                         Write-Host "`nH:\ Drive exists, Writing...`n"
                         $Drive = "H:\"
+                        $ifdone = $TRUE
                     }
-                    if ((Test-Path C:\) -and -Not (Test-Path H:\)){
+                    if (((Test-Path C:\) -and -Not (Test-Path H:\)) -and ($ifdone -eq $FALSE)){
                         Write-Host "`nH:\ Drive does not exist, using C:\ drive ...`n"
-                        $Drive = "C:\"
+                        $Drive = ("C:\Users\" + $env:USERNAME)
+                        $ifdone = $TRUE
                     }
-                    else {
-                        Write-Host "`nPath testing failed, aborting...`n"
-                        $Drive = ""
+                    #else {
+                    #    Write-Host "`nPath testing failed, aborting...`n"
+                    #    $Drive = ""
+                    #}
+
+                    if ($filetype -ne ".bmp" ){
+                        Write-Host "Filetype is not BMP, changing to support script...`n"
+                        xcopy ($library + $filename + $filetype) ($library + $filename + "convert.bmp")
+                        $filetype = ".bmp"
+                        $filename = ($filename + "convert")
+                        $FileFinal = ($library + $filename + $filetype)
+                        #remember to delete this file when script is done
                     }
+                    if ($filetype -eq ".bmp" ){
+                        Write-Host "Filetype is already BMP"
+                        $FileFinal = ($library + $filename + $filetype)
+                    }
+
+                    #####currently incompatible with C drive systems
+
                     ### for H: drive systems, school systems
+                    $fullpath = ($Drive + $filename + $filetype)
+                    if (Test-Path $fullpath){
+                        del $fullpath
+                        xcopy ($FileFinal) $Drive
+                        [Wallpaper.Setter]::SetWallpaper( $fullpath, 2 )
+                        del $fullpath
+                    }
+                    if (-Not (Test-Path $fullpath)){
+                        xcopy ($FileFinal) $Drive
+                        [Wallpaper.Setter]::SetWallpaper( $fullpath, 2 )
+                        del $fullpath
+                    }
+
+                    $FileFinal = ""
                     #del H:\wallpaper.bmp
                     #xcopy .\wallpaper.bmp H:\
                     #[Wallpaper.Setter]::SetWallpaper( 'H:\wallpaper.bmp', 2 )
