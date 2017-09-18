@@ -55,6 +55,12 @@ $done = $FALSE
 while($done -eq $FALSE){
     $title = "Wallpaper Changer and other Tools Menu, Version 6.5"
     $message = "`nThe tools included in this script are as follows:`nWallpaper Changer`n`n"
+    ##options are:
+    ##WallpaperChanger
+    ##WebTrafficEncrypter
+    ##TaskViewer
+    ##ImageFiletypeConverter
+
 
     #CURRENT OPTIONS BEGIN
     $WallpaperChanger = New-Object System.Management.Automation.Host.ChoiceDescription "&WallpaperChanger", `
@@ -82,7 +88,11 @@ while($done -eq $FALSE){
             $filename = Read-Host -Prompt "Filename"
             $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
             $title = "Is this filename correct?"
-            $result = $Host.UI.PromptForChoice($title,$filename,$options, 0)
+            $result = $Host.UI.PromptForChoice($title,($filename + ".bmp"),$options, 0)
+            if (-Not (Test-Path (".\" + $filename + ".bmp"))){
+                Write-Host "The selected filename does not exist, aborting..."
+                Break
+            }
             $Drive = ""
             switch ($result){
                 0 {
