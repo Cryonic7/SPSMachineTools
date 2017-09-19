@@ -1,7 +1,10 @@
-Wallpaper Changer for SPS systems V7.1
+Wallpaper Changer for SPS systems V7.4
 
 This script only changes the current wallpaper for the current user, on this PC only, IF YOU LOG INTO ANOTHER MACHINE, YOU WILL HAVE TO RUN
 THIS SCRIPT AGAIN
+
+ALL DESIRED WALLPAPER IMAGES MUST BE PLACED IN THE \PICTURESLIBRARY\ FOLDER TO BE ABLE TO SELECT THEM WITH THE SCRIPT,
+OTHERWISE, THE SCRIPT WILL FAIL
 
 WARNING:
 --------
@@ -18,25 +21,24 @@ IF YOU DO NOT WANT TO GET CAUGHT, AND DO NOT WANT TO GET IN TROUBLE, DO NOT USE 
 
 Directions:
 -----------
+1. Make sure the desired wallpaper is inside the folder "PicturesLibrary".
 
-1. Right click "wallpaperchanger.ps1" and click "Run with Powershell"
+2. Right click "wallpaperchanger.ps1" and click "Run with Powershell".
 
-2. Wait for the script to run and find the wallpaper to change it with
---- Note: The script may return some errors in deleting the wallpaper if it doesn't already exist, this is normal and the script will still
-succeed
+3. Select [W] for WallpaperChanger.
 
-3. (OPTIONAL) Sometimes the script will ask if you'd like to change execution policy, enter Y so that the script will continue and complete.
-Doing this will sometimes give an error because it could not change the policy computer-wide, but this does not matter.
+4. Follow the instructions and enter the filename of the wallpaper you'd like and then after that the filetype of the desired file.
 
-4. Enjoy your new wallpaper
+5. Confirm that it's the desired file, and if so, let the script complete.
+
+6. The script will now run, and change your wallpaper to that of the desired file.
+
+7. Enjoy your new wallpaper.
 
 TO SET ANOTHER, DIFFERENT WALLPAPER:
 ------------------------------------
+1. Repeat previous directions
 
-1. Replace wallpaper.bmp with another image of your choice
+2. ?????
 
-2. Place it in the folder along with your script, so that the script can use it to change
-
-3. Repeat steps of original directions 2-5
-
-4. Enjoy
+3. Profit.
