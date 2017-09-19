@@ -1,4 +1,4 @@
-Wallpaper Changer for SPS systems V6.1
+Wallpaper Changer for SPS systems V7.1
 
 This script only changes the current wallpaper for the current user, on this PC only, IF YOU LOG INTO ANOTHER MACHINE, YOU WILL HAVE TO RUN
 THIS SCRIPT AGAIN
