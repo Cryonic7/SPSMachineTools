@@ -145,6 +145,7 @@ while($done -eq $FALSE){
                             [Wallpaper.Setter]::SetWallpaper( $fullpath, 2 )
                             del $fullpath
                         }
+                        del $FileFinal
 
                         $FileFinal = ""
                     
