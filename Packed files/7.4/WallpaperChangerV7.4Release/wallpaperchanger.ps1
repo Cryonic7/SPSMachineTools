@@ -56,7 +56,8 @@ while($done -eq $FALSE){
     $title = "Wallpaper Changer and other Tools Menu, Version 7.1"
     $message = "`nThe tools included in this script are as follows:`nWallpaper Changer`n`n"
     ##options are:
-    ##WallpaperChanger
+    ###WallpaperChanger (COMPLETE)
+
     ##WebTrafficEncrypter
     ##TaskViewer
     ##ImageFiletypeConverter
@@ -100,6 +101,7 @@ while($done -eq $FALSE){
                 $FileFinal = ""
                 switch ($result){
                     0 {
+                        $ifconverted = ""
                         Write-Host "Initiating Changes..."
                         $ifdone = $FALSE
                         if ((Test-Path H:\) -and ($ifdone -eq $FALSE)){
@@ -123,6 +125,7 @@ while($done -eq $FALSE){
                             $filetype = ".bmp"
                             $filename = ($filename + "convert")
                             $FileFinal = ($library + $filename + $filetype)
+                            $ifconverted = "YES"
                             #remember to delete this file when script is done
                         }
                         if ($filetype -eq ".bmp" ){
@@ -145,7 +148,9 @@ while($done -eq $FALSE){
                             [Wallpaper.Setter]::SetWallpaper( $fullpath, 2 )
                             del $fullpath
                         }
-                        del $FileFinal
+                        if ($ifconverted -ne ""){
+                            del $FileFinal
+                        }
 
                         $FileFinal = ""
                     

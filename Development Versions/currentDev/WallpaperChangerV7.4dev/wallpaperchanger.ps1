@@ -60,7 +60,6 @@ while($done -eq $FALSE){
 
     ##WebTrafficEncrypter
     ##TaskViewer
-    ##ImageFiletypeConverter
 
 
     #CURRENT OPTIONS BEGIN
