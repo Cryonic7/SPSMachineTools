@@ -49,10 +49,12 @@ namespace Wallpaper
 #xcopy .\wallpaper.bmp C:\Users\TEST\Documents\
 #[Wallpaper.Setter]::SetWallpaper( 'C:\Users\TEST\Documents\wallpaper.bmp', 2 )
 
+Set-ExecutionPolicy -Scope CurrentUser unrestricted
+cls
 $done = $FALSE
 while($done -eq $FALSE){
-    $title = "Wallpaper Changer and other Tools Menu, Version 6.3"
-    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer`nImage type converter[NONFUNCTIONAL]`n`n"
+    $title = "Wallpaper Changer and other Tools Menu, Version 6.5"
+    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer`n`n"
 
     #CURRENT OPTIONS BEGIN
     $WallpaperChanger = New-Object System.Management.Automation.Host.ChoiceDescription "&WallpaperChanger", `
@@ -85,11 +87,19 @@ while($done -eq $FALSE){
             switch ($result){
                 0 {
                     Write-Host "Initiating Changes..."
-                    if (Test-Path H:\){
+                    $ifdone = $FALSE
+                    if ((Test-Path H:\) -and ($ifdone -eq $FALSE)){
                         Write-Host "`nH:\ Drive exists, Writing...`n"
                         $Drive = "H:\"
-                        Break
-                    }if 
+                    }
+                    if ((Test-Path C:\) -and -Not (Test-Path H:\)){
+                        Write-Host "`nH:\ Drive does not exist, using C:\ drive ...`n"
+                        $Drive = "C:\"
+                    }
+                    else {
+                        Write-Host "`nPath testing failed, aborting...`n"
+                        $Drive = ""
+                    }
                     ### for H: drive systems, school systems
                     #del H:\wallpaper.bmp
                     #xcopy .\wallpaper.bmp H:\
