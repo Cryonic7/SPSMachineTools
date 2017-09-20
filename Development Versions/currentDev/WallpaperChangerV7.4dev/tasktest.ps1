@@ -4,7 +4,7 @@ $saveX = [console]::CursorLeft
 
 cls
 while ($true) {
-    Get-Process | Sort -Descending -Unique SI,ProcessName| Select -First 30 -Property Username;
-    Sleep -Seconds 2;
+    Get-Process | Sort -Unique SI,ProcessName| Select | Where-Object -FilterScript {$_.SessionId -ne 0} ;
+    Sleep -Seconds 1;
     [console]::setcursorposition($saveX,$saveY-6)
 }
