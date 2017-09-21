@@ -45,7 +45,7 @@ $done = $FALSE
 while($done -eq $FALSE){
     #[console]::WindowTop
     $title = "SPS User Tools V1.1"
-    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V7.4`nTaskViewer V1.2`n`n"
+    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V7.6`nTaskViewer V1.2`n`n"
     ##options are:
     ###WallpaperChanger (COMPLETE)
     ###TaskViewer (PROTO)
@@ -114,14 +114,19 @@ while($done -eq $FALSE){
 
                         if ($filetype -ne ".bmp" ){
                             Write-Host "Filetype is not BMP, changing to support script...`n"
-                            xcopy ($library + $filename + $filetype) ($library + $filename + "convert.bmp") /Y
+                            $bmptype = ".bmp"
+                            
+                            Add-Type -AssemblyName System.Windows.Forms
+                            [System.Windows.Forms.SendKeys]::SendWait('F');
+                            xcopy ($library + $filename + $filetype) ($library + $filename + "converted" + $bmptype) /Y
+
                             $filetype = ".bmp"
-                            $filename = ($filename + "convert")
+                            $filename = ($filename + "converted")
                             $FileFinal = ($library + $filename + $filetype)
                             $ifconverted = "YES"
                             #remember to delete this file when script is done
                         }
-                        if ($filetype -eq ".bmp" ){
+                        if ($filetype -eq ".bmp" -and $ifconverted -ne "YES"){
                             Write-Host "Filetype is already BMP"
                             $FileFinal = ($library + $filename + $filetype)
                         }
@@ -133,11 +138,13 @@ while($done -eq $FALSE){
                         if (Test-Path $fullpath){
                             del $fullpath
                             xcopy ($FileFinal) $Drive /Y
+                            #robocopy $library $Drive ($filename + $filetype)
                             [Wallpaper.Setter]::SetWallpaper( $fullpath, 2 )
                             del $fullpath
                         }
                         if (-Not (Test-Path $fullpath)){
                             xcopy ($FileFinal) $Drive /Y
+                            #robocopy $library $Drive ($filename + $filetype)
                             [Wallpaper.Setter]::SetWallpaper( $fullpath, 2 )
                             del $fullpath
                         }
