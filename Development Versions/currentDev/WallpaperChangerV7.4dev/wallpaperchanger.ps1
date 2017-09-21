@@ -173,22 +173,15 @@ while($done -eq $FALSE){
                     Write-Host "Starting Viewer"
                     #$saveY = [console]::CursorTop
                     $saveY = [console]::WindowTop
-                    $saveX = [console]::CursorLeft      
-
-                    cls
+                    $saveX = [console]::CursorLeft
+                    cls      
                     while ($true) {
-                        Get-Process | Sort -Unique SI,ProcessName| Select | Where-Object -FilterScript {$_.SessionId -ne 0} ;
-                        $seconds++
+                        Get-Process | Sort -Unique SI,ProcessName| Where-Object -FilterScript {$_.SessionId -ne 0} ;
                         Sleep -Seconds 1;
                         [console]::setcursorposition($saveX,$saveY+3)
-                        if($seconds -ge 10){
-                            $seconds = 0
-                            for($a , $a -le 40, $a++){
-                                [console]::SetCursorPosition($saveX, $a+3)
-                                Write-Host $blank
-                            }
-                        }
-                    }
+
+                    }  
+                    
                 }
                 1{
                     Write-Host "Aborting..."
