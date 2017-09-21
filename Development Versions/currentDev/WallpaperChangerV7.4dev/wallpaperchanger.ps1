@@ -179,7 +179,7 @@ while($done -eq $FALSE){
                         Get-Process | Sort -Unique SI,ProcessName| Where-Object -FilterScript {$_.SessionId -ne 0} ;
                         Sleep -Seconds 1;
                         [console]::setcursorposition($saveX,$saveY+3)
-
+                        Write-Host "`n`n`n`n`n`n`n                        "
                     }  
                     
                 }
