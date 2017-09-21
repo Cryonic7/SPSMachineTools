@@ -67,7 +67,7 @@ while($done -eq $FALSE){
     #AUX OPTIONS
     $yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes"
     $no = New-Object System.Management.Automation.Host.ChoiceDescription "&No"
-    $blank = ""
+    $blank = " "
     #UI PROMPT BEGIN
     $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $Exit)
 
@@ -176,7 +176,10 @@ while($done -eq $FALSE){
                         [console]::setcursorposition($saveX,$saveY+3)
                         if($seconds -ge 10){
                             $seconds = 0
-                            cls
+                            for($a , $a -le 40, $a++){
+                                [console]::SetCursorPosition($saveX, $a+3)
+                                Write-Host $blank
+                            }
                         }
                     }
                 }
