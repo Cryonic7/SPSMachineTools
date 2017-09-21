@@ -39,32 +39,26 @@ namespace Wallpaper
    }
 }
 "@
-#del H:\wallpaper.bmp
-#xcopy .\wallpaper.bmp H:\
-#[Wallpaper.Setter]::SetWallpaper( 'H:\wallpaper.bmp', 2 )
-#del H:\wallpaper.bmp
-
-##this stuff is for test machine in virtualbox at home, do not mess with
-#del C:\Users\TEST\Documents\
-#xcopy .\wallpaper.bmp C:\Users\TEST\Documents\
-#[Wallpaper.Setter]::SetWallpaper( 'C:\Users\TEST\Documents\wallpaper.bmp', 2 )
-
 Set-ExecutionPolicy -Scope CurrentUser unrestricted
 cls
 $done = $FALSE
 while($done -eq $FALSE){
-    $title = "Wallpaper Changer and other Tools Menu, Version 7.1"
-    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer`n`n"
+    #[console]::WindowTop
+    $title = "SPS User Tools V1.1"
+    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V7.4`nTaskViewer V1.2`n`n"
     ##options are:
     ###WallpaperChanger (COMPLETE)
+    ###TaskViewer (PROTO)
 
     ##WebTrafficEncrypter
-    ##TaskViewer
 
 
     #CURRENT OPTIONS BEGIN
     $WallpaperChanger = New-Object System.Management.Automation.Host.ChoiceDescription "&WallpaperChanger", `
-    "Change the wallpaper or background on your computer, requires 'wallpaper.bmp' to be present in the same folder as this script"
+    "Change the wallpaper or background on your computer, requires the image to be in the 'PicturesLibrary' directory"
+
+    $TaskViewer = New-Object System.Management.Automation.Host.ChoiceDescription "&TaskViewer", `
+    "View the currently running tasks in real time, sorted by process name"
 
     $Exit = New-Object System.Management.Automation.Host.ChoiceDescription "&Exit", `
     "Exits the script safely"
@@ -75,7 +69,7 @@ while($done -eq $FALSE){
     $no = New-Object System.Management.Automation.Host.ChoiceDescription "&No"
     $blank = ""
     #UI PROMPT BEGIN
-    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $Exit)
+    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $Exit)
 
     $result = $Host.UI.PromptForChoice($title, $message, $options, 0)
     #UI PROMPT END
@@ -160,8 +154,41 @@ while($done -eq $FALSE){
                     }
                 }
         }
-        #Exiting Script
+        ##TASK VIEWER
         1 {
+            ##current code is in 'tasktest.ps1' copy from there
+            $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
+            $title = "TaskViewer V1.2"
+            $message = "`nAre you sure you want to start the task viewer? Doing so will leave this script unresponsive, only to view the current processes. If you want to use other tools or kill a task, start another instance of the SPStools script and use another menu item."
+            $result = $Host.UI.PromptForChoice($title,$message,$options, 0)
+            switch ($result){
+                0{
+                    Write-Host "Starting Viewer"
+                    #$saveY = [console]::CursorTop
+                    $saveY = [console]::WindowTop
+                    $saveX = [console]::CursorLeft      
+
+                    cls
+                    while ($true) {
+                        Get-Process | Sort -Unique SI,ProcessName| Select | Where-Object -FilterScript {$_.SessionId -ne 0} ;
+                        $seconds++
+                        Sleep -Seconds 1;
+                        [console]::setcursorposition($saveX,$saveY+3)
+                        if($seconds -ge 10){
+                            $seconds = 0
+                            cls
+                        }
+                    }
+                }
+                1{
+                    Write-Host "Aborting..."
+                    Break
+                }
+            }
+        }
+
+        #Exiting Script
+        2 {
         Write-Host "Thank you for using a Hypersleep Developments Tool, we wish you well in the future"
         $done = $TRUE
         Break
