@@ -78,10 +78,20 @@ while($done -eq $FALSE){
     {
         #changing the wallpaper
         0 {
-                Write-Host "`nYou have selected to change your wallpaper, so please input the filename of your wallpaper, and ONLY the filename without file type extension"# WARNING, the image file MUST be in BMP format or it will not work. ALSO, only type the filename, and do not at the extension, as in 'wallpaper' instead of 'wallpaper.bmp'`n"
-                $filename = Read-Host -Prompt "Filename"
-                Write-Host "`nPlease type the file type, such as .jpg, .bmp, .png, etc`n"
-                $filetype = Read-Host -Prompt "Filetype"
+                Write-Host "`nYou have selected to change your wallpaper, so please input the full filename of your wallpaper, e.g. 'wallpaper.jpg'"
+                $file = Read-Host -Prompt "Filename"
+                #Write-Host "`nPlease type the file type, such as .jpg, .bmp, .png, etc`n"
+                #$filetype = Read-Host -Prompt "Filetype"
+                if(-not $file.Contains(".")){
+                Write-Host "Not a file, aborting..."
+                Break
+                }
+                $fullfile = $file.Split(".")
+                $filename = $fullfile[0]
+                $filetype = "." + $fullfile[1]
+                if ($fullfile[1] -eq $null -or $fullfile[1] -eq "" -or $fullfile[1].Contains(" ")){
+                Write-Host "Not a file, aborting..."
+                Break}
                 $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
                 $library = ".\PicturesLibrary\"
                 $title = "Is this filename correct?"
