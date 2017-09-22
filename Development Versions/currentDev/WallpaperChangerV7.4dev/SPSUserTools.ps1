@@ -44,11 +44,12 @@ cls
 $done = $FALSE
 while($done -eq $FALSE){
     #[console]::WindowTop
-    $title = "SPS User Tools V1.2"
-    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.3`nTaskViewer V1.3`n`n"
+    $title = "SPS User Tools V1.3"
+    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.4`nTaskViewer V1.5`nTaskKiller V0.2`n`n"
     ##options are:
     ###WallpaperChanger (COMPLETE)
-    ###TaskViewer (PROTO)
+    ###TaskViewer (COMPLETE)
+    ###TaskKiller (PROTO)
 
     ##WebTrafficEncrypter
 
@@ -59,6 +60,9 @@ while($done -eq $FALSE){
     $TaskViewer = New-Object System.Management.Automation.Host.ChoiceDescription "&TaskViewer", `
     "View the currently running tasks in real time, sorted by process name"
 
+    $TaskKiller = New-Object System.Management.Automation.Host.ChoiceDescription "Task&Killer", `
+    "Kill a task visible from TaskViewer using its Process ID"
+
     $Exit = New-Object System.Management.Automation.Host.ChoiceDescription "&Exit", `
     "Exits the script safely"
 
@@ -68,7 +72,7 @@ while($done -eq $FALSE){
     $no = New-Object System.Management.Automation.Host.ChoiceDescription "&No"
     $blank = " "
     #UI PROMPT BEGIN
-    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $Exit)
+    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $TaskKiller, $Exit)
 
     $result = $Host.UI.PromptForChoice($title, $message, $options, 0)
     #UI PROMPT END
@@ -176,7 +180,6 @@ while($done -eq $FALSE){
         }
         ##TASK VIEWER
         1 {
-            ##current code is in 'tasktest.ps1' copy from there
             $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
             $title = "TaskViewer V1.2"
             $message = "`nAre you sure you want to start the task viewer? Doing so will leave this script unresponsive, only to view the current processes. If you want to use other tools or kill a task, start another instance of the SPStools script and use another menu item."
@@ -209,13 +212,32 @@ while($done -eq $FALSE){
                 }
             }
         }
+        #TASKVIEWER END
 
-        #Exiting Script
+        #TASKKILLER START
         2 {
+            Write-Host "You have selected to kill a task, using it's Process Identifier found in TaskViewer, please enter the ID now."
+            $pid = Read-Host -Prompt "PID:"
+            if ($pid -ne $null -or $pid -ne "" -or $pid -contains " "){
+                Write-Host "Input is empty or non-numerical, Aborting..."
+                Break
+            }
+            if ($pid -is -Not [int]){
+                Write-Host "Input is non-numerical value, Aborting..."
+                Break
+            }
+            if ($pid -is [int]){
+                Write-Host "Input is a  number, sending SIGKILL..."
+                TASKKILL /PID $pid /F
+            }
+        }
+        #TASKKILLER END
+        
+        #Exiting Script
+        3 {
         Write-Host "Thank you for using a Hypersleep Developments Tool, we wish you well in the future"
         $done = $TRUE
         Break
         }
     }  
 }
-
