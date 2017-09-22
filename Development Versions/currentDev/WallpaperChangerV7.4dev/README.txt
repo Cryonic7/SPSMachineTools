@@ -1,10 +1,10 @@
-SPS User Tools V1.1 includes:
-WallpaperChangerV7.6
-TaskViewerV1.2
+SPS User Tools V1.2 includes:
+WallpaperChangerV8.1
+TaskViewerV1.3
 
 The Readme directions for each tool are below.
 
-Wallpaper Changer for SPS systems V7.4:
+Wallpaper Changer for SPS systems V8.1:
 
 	This script only changes the current wallpaper for the current user, on this PC only, IF YOU LOG INTO ANOTHER MACHINE, YOU WILL HAVE TO RUN
 	THIS SCRIPT AGAIN
@@ -51,4 +51,8 @@ Wallpaper Changer for SPS systems V7.4:
 
 End of WallpaperChanger Readme
 
-Realtime Task and Thread Viewer for SPS Systems V1.2
+Realtime Task and Thread Viewer for SPS Systems V1.3
+	
+	Run from the menu i guess i dont fuckin know
+	this is still bleeding edge
+	it leaves it unresponsive and still has artifacts
