@@ -1,7 +1,7 @@
-SPS User Tools V1.3 includes:
+SPS User Tools V1.4 includes:
 WallpaperChangerV8.4
-TaskViewerV1.5
-TaskKillerV0.2
+TaskViewerV1.6
+TaskKillerV1.1
 
 The Readme directions for each tool are below.
 
