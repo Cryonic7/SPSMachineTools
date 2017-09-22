@@ -1,5 +1,5 @@
 SPS User Tools V1.2 includes:
-WallpaperChangerV8.1
+WallpaperChangerV8.3
 TaskViewerV1.3
 
 The Readme directions for each tool are below.

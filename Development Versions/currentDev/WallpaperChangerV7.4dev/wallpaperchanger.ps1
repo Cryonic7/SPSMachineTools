@@ -44,14 +44,13 @@ cls
 $done = $FALSE
 while($done -eq $FALSE){
     #[console]::WindowTop
-    $title = "SPS User Tools V1.1"
-    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V7.6`nTaskViewer V1.2`n`n"
+    $title = "SPS User Tools V1.2"
+    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.3`nTaskViewer V1.3`n`n"
     ##options are:
     ###WallpaperChanger (COMPLETE)
     ###TaskViewer (PROTO)
 
     ##WebTrafficEncrypter
-
 
     #CURRENT OPTIONS BEGIN
     $WallpaperChanger = New-Object System.Management.Automation.Host.ChoiceDescription "&WallpaperChanger", `
@@ -78,7 +77,12 @@ while($done -eq $FALSE){
     {
         #changing the wallpaper
         0 {
+                $library = ".\PicturesLibrary\"
                 Write-Host "`nYou have selected to change your wallpaper, so please input the full filename of your wallpaper, e.g. 'wallpaper.jpg'"
+                cd $library
+                Write-Host "`nCurrent available files are:"
+                dir
+                cd ..
                 $file = Read-Host -Prompt "Filename"
                 #Write-Host "`nPlease type the file type, such as .jpg, .bmp, .png, etc`n"
                 #$filetype = Read-Host -Prompt "Filetype"
@@ -93,7 +97,6 @@ while($done -eq $FALSE){
                 Write-Host "Not a file, aborting..."
                 Break}
                 $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
-                $library = ".\PicturesLibrary\"
                 $title = "Is this filename correct?"
                 $result = $Host.UI.PromptForChoice($title,($filename + $filetype),$options, 0)
                 if (-Not (Test-Path ($library + $filename + $filetype))){
