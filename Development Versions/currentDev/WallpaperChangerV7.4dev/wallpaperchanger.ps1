@@ -183,16 +183,24 @@ while($done -eq $FALSE){
             $result = $Host.UI.PromptForChoice($title,$message,$options, 0)
             switch ($result){
                 0{
+                    while ($true){
                     Write-Host "Starting Viewer"
                     #$saveY = [console]::CursorTop
                     $saveY = [console]::WindowTop
                     $saveX = [console]::CursorLeft
-                    cls      
+                    cls
+                    #Get-Process | Select -First 1 | Format-Table
                     while ($true) {
-                        Get-Process | Sort -Unique SI,ProcessName| Where-Object -FilterScript {$_.SessionId -ne 0} ;
+                        Get-Process | Sort -Unique SI,ProcessName| Where-Object -FilterScript {$_.SessionId -ne 0} | Format-Table;
+                        $seconds = $seconds + 1
                         Sleep -Seconds 1;
-                        [console]::setcursorposition($saveX,$saveY+3)
-                    }  
+                        [console]::setcursorposition($saveX,$saveY)
+                        if($seconds -ge 10){
+                            $seconds = 0
+                            Break
+                        }
+                    } 
+                    } 
                     
                 }
                 1{
