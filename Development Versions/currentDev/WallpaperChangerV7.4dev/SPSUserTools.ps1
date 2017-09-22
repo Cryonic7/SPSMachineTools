@@ -44,8 +44,8 @@ cls
 $done = $FALSE
 while($done -eq $FALSE){
     #[console]::WindowTop
-    $title = "SPS User Tools V1.3"
-    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.4`nTaskViewer V1.5`nTaskKiller V0.2`n`n"
+    $title = "SPS User Tools V1.4"
+    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.4`nTaskViewer V1.6`nTaskKiller V1.1`n`n"
     ##options are:
     ###WallpaperChanger (COMPLETE)
     ###TaskViewer (COMPLETE)
@@ -217,16 +217,17 @@ while($done -eq $FALSE){
         #TASKKILLER START
         2 {
             Write-Host "You have selected to kill a task, using it's Process Identifier found in TaskViewer, please enter the ID now."
-            $pid = Read-Host -Prompt "PID:"
-            if ($pid -ne $null -or $pid -ne "" -or $pid -contains " "){
+            $KILLPID = ""
+            $KILLPID = Read-Host -Prompt "PID:"
+            if ($KILLPID -eq $null -or $KILLPID -eq "" -or $KILLPID -contains " "){
                 Write-Host "Input is empty or non-numerical, Aborting..."
                 Break
             }
-            if ($pid -is -Not [int]){
+            if ($KILLPID -is -Not [int]){
                 Write-Host "Input is non-numerical value, Aborting..."
                 Break
             }
-            if ($pid -is [int]){
+            if ($KILLPID -is [int]){
                 Write-Host "Input is a  number, sending SIGKILL..."
                 TASKKILL /PID $pid /F
             }
