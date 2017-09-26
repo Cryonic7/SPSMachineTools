@@ -213,15 +213,6 @@ while($done -eq $FALSE){
         #TASKKILLER START
         2 {
             Write-Host "Opening Kill window"
-            <#Write-Host "You have selected to kill a task, using it's Process Identifier found in TaskViewer, please enter the ID now."
-            $KILLPID = ""
-            $KILLPID = Read-Host -Prompt "PID:"
-            if ($KILLPID -eq $null -or $KILLPID -eq "" -or $KILLPID -contains " "){
-                Write-Host "Input is empty or non-numerical, Aborting..."
-                Break
-            }          
-            Write-Host "Attempting to send SIGKILL..."
-            TASKKILL /PID $KILLPID /F#>
             $CURRENTSESSIONID = (Get-Process -PID $pid).SessionID
             Get-Process | Where-Object -FilterScript {$_.SessionId -eq $CURRENTSESSIONID}| Out-GridView -OutputMode Multiple | Stop-Process -Force
         }
