@@ -44,8 +44,8 @@ cls
 $done = $FALSE
 while($done -eq $FALSE){
     #[console]::WindowTop
-    $title = "SPS User Tools V1.7"
-    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.4`nTaskViewer V1.6`nTaskKiller V1.4`nRuntask V1.1`n`n"
+    $title = "SPS User Tools V1.8"
+    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.5`nTaskViewer V1.7`nTaskKiller V1.8`nRuntask V1.1`n`n"
     ##options are:
     ###WallpaperChanger (COMPLETE)
     ###TaskViewer (COMPLETE)
@@ -185,7 +185,7 @@ while($done -eq $FALSE){
         ##TASK VIEWER
         1 {
             $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
-            $title = "TaskViewer V1.2"
+            $title = "TaskViewer"
             $message = "`nAre you sure you want to start the task viewer? Doing so will leave this script unresponsive, only to view the current processes. If you want to use other tools or kill a task, start another instance of the SPStools script and use another menu item."
             $result = $Host.UI.PromptForChoice($title,$message,$options, 0)
             switch ($result){

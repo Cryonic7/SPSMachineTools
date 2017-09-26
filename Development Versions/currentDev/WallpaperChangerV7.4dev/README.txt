@@ -1,12 +1,12 @@
 SPS User Tools V1.7 includes:
-WallpaperChangerV8.4
-TaskViewerV1.6
-TaskKillerV1.4
+WallpaperChangerV8.5
+TaskViewerV1.7
+TaskKillerV1.8
 RunTaskV1.1
 
 The Readme directions for each tool are below.
 
-Wallpaper Changer for SPS systems V8.1:
+Wallpaper Changer for SPS systems V8.5:
 
 	This script only changes the current wallpaper for the current user, on this PC only, IF YOU LOG INTO ANOTHER MACHINE, YOU WILL HAVE TO RUN
 	THIS SCRIPT AGAIN
