@@ -197,8 +197,9 @@ while($done -eq $FALSE){
                     $saveX = [console]::CursorLeft
                     cls
                     #Get-Process | Select -First 1 | Format-Table
+                    $CURRENTSESSIONID = (Get-Process -PID $pid).SessionID
                     while ($true) {
-                        Get-Process | Sort -Unique SI,ProcessName| Where-Object -FilterScript {$_.SessionId -ne 0} | Format-Table;
+                        Get-Process | Sort -Unique SI,ProcessName| Where-Object -FilterScript {$_.SessionId -eq $CURRENTSESSIONID} | Format-Table;
                         $seconds = $seconds + 1
                         Sleep -Seconds 1;
                         [console]::setcursorposition($saveX,$saveY)
