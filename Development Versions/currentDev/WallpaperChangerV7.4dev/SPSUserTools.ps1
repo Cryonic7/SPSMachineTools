@@ -190,26 +190,17 @@ while($done -eq $FALSE){
             $result = $Host.UI.PromptForChoice($title,$message,$options, 0)
             switch ($result){
                 0{
-                    while ($true){
                     Write-Host "Starting Viewer"
-                    #$saveY = [console]::CursorTop
-                    $saveY = [console]::WindowTop
-                    $saveX = [console]::CursorLeft
                     cls
                     #Get-Process | Select -First 1 | Format-Table
                     $CURRENTSESSIONID = (Get-Process -PID $pid).SessionID
                     while ($true) {
-                        Get-Process | Sort -Unique SI,ProcessName| Where-Object -FilterScript {$_.SessionId -eq $CURRENTSESSIONID} | Format-Table;
+                        $OUT = Get-Process | Sort -Unique SI,ProcessName| Where-Object -FilterScript {$_.SessionId -eq $CURRENTSESSIONID} | Format-Table;
                         $seconds = $seconds + 1
                         Sleep -Seconds 1;
-                        [console]::setcursorposition($saveX,$saveY)
-                        if($seconds -ge 10){
-                            $seconds = 0
-                            Break
-                        }
+                        cls
+                        $out
                     } 
-                    } 
-                    
                 }
                 1{
                     Write-Host "Aborting..."
@@ -221,7 +212,8 @@ while($done -eq $FALSE){
 
         #TASKKILLER START
         2 {
-            Write-Host "You have selected to kill a task, using it's Process Identifier found in TaskViewer, please enter the ID now."
+            Write-Host "Opening Kill window"
+            <#Write-Host "You have selected to kill a task, using it's Process Identifier found in TaskViewer, please enter the ID now."
             $KILLPID = ""
             $KILLPID = Read-Host -Prompt "PID:"
             if ($KILLPID -eq $null -or $KILLPID -eq "" -or $KILLPID -contains " "){
@@ -229,7 +221,9 @@ while($done -eq $FALSE){
                 Break
             }          
             Write-Host "Attempting to send SIGKILL..."
-            TASKKILL /PID $KILLPID /F
+            TASKKILL /PID $KILLPID /F#>
+            $CURRENTSESSIONID = (Get-Process -PID $pid).SessionID
+            Get-Process | Where-Object -FilterScript {$_.SessionId -eq $CURRENTSESSIONID}| Out-GridView -OutputMode Multiple | Stop-Process -Force
         }
         #TASKKILLER END
         
