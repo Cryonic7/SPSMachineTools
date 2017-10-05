@@ -42,6 +42,7 @@ namespace Wallpaper
 Set-ExecutionPolicy -Scope CurrentUser unrestricted
 cls
 $done = $FALSE
+$ScriptDir = $PSScriptRoot
 while($done -eq $FALSE){
     #[console]::WindowTop
     $title = "SPS User Tools V1.8"
@@ -53,7 +54,7 @@ while($done -eq $FALSE){
     ###RunTask (COMPLETE)
 
     ##WebTrafficEncrypter
-
+    
     #CURRENT OPTIONS BEGIN
     $WallpaperChanger = New-Object System.Management.Automation.Host.ChoiceDescription "&WallpaperChanger", `
     "Change the wallpaper or background on your computer, requires the image to be in the 'PicturesLibrary' directory"
@@ -117,17 +118,19 @@ while($done -eq $FALSE){
                     0 {
                         $ifconverted = ""
                         Write-Host "Initiating Changes..."
-                        $ifdone = $FALSE
-                        if ((Test-Path H:\) -and ($ifdone -eq $FALSE)){
-                            Write-Host "`nH:\ Drive exists, Writing...`n"
-                            $Drive = "H:\"
-                            $ifdone = $TRUE
-                        }
-                        if (((Test-Path C:\) -and -Not (Test-Path H:\)) -and ($ifdone -eq $FALSE)){
-                            Write-Host "`nH:\ Drive does not exist, using C:\ drive ...`n"
-                            $Drive = ("C:\Users\" + $env:USERNAME)
-                            $ifdone = $TRUE
-                        }
+                        $Drive = $PSScriptRoot
+                        Write-Host "`nUsing Current Directory...`n"
+                        #$ifdone = $FALSE
+                        #if ((Test-Path H:\) -and ($ifdone -eq $FALSE)){
+                        #    Write-Host "`nH:\ Drive exists, Writing...`n"
+                        #    $Drive = "H:\"
+                        #    $ifdone = $TRUE
+                        #}
+                        #if (((Test-Path C:\) -and -Not (Test-Path H:\)) -and ($ifdone -eq $FALSE)){
+                        #    Write-Host "`nH:\ Drive does not exist, using C:\ drive ...`n"
+                        #    $Drive = ("C:\Users\" + $env:USERNAME)
+                        #    $ifdone = $TRUE
+                        #}
                         #else {
                         #    Write-Host "`nPath testing failed, aborting...`n"
                         #    $Drive = ""
