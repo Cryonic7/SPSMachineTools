@@ -102,7 +102,7 @@ while($done -eq $FALSE){
                 $fullfile = $file.Split(".")
                 $filename = $fullfile[0]
                 $filetype = "." + $fullfile[1]
-                if ($fullfile[1] -eq $null -or $fullfile[1] -eq "" -or $fullfile[1].Contains(" ")){
+                if ($fullfile[1] -eq $null -or $fullfile[1] -eq "" -or $fullfile[1].Contains(" ") -or $fullfile[3] -eq -not $null){
                 Write-Host "Not a file, aborting..."
                 Break}
                 $options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
@@ -120,21 +120,6 @@ while($done -eq $FALSE){
                         Write-Host "Initiating Changes..."
                         $Drive = $PSScriptRoot
                         Write-Host "`nUsing Current Directory...`n"
-                        #$ifdone = $FALSE
-                        #if ((Test-Path H:\) -and ($ifdone -eq $FALSE)){
-                        #    Write-Host "`nH:\ Drive exists, Writing...`n"
-                        #    $Drive = "H:\"
-                        #    $ifdone = $TRUE
-                        #}
-                        #if (((Test-Path C:\) -and -Not (Test-Path H:\)) -and ($ifdone -eq $FALSE)){
-                        #    Write-Host "`nH:\ Drive does not exist, using C:\ drive ...`n"
-                        #    $Drive = ("C:\Users\" + $env:USERNAME)
-                        #    $ifdone = $TRUE
-                        #}
-                        #else {
-                        #    Write-Host "`nPath testing failed, aborting...`n"
-                        #    $Drive = ""
-                        #}
 
                         if ($filetype -ne ".bmp" ){
                             Write-Host "Filetype is not BMP, changing to support script...`n"
@@ -156,8 +141,8 @@ while($done -eq $FALSE){
                         }
 
                         #####currently incompatible with C drive systems
-
                         ### for H: drive systems, school systems
+                        #######I LIED IT TOTALLY WORKS WITH LITERALLY ANY DRIVE NOW CAUSE IT JUST GETS THE CURRENT DIRECTORY
                         $fullpath = ($Drive + $filename + $filetype)
                         if (Test-Path $fullpath){
                             del $fullpath
