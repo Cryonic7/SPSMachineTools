@@ -1,12 +1,12 @@
-SPS User Tools V1.7 includes:
-WallpaperChangerV8.5
+SPS User Tools V1.8 includes:
+WallpaperChangerV8.7
 TaskViewerV1.7
 TaskKillerV1.8
-RunTaskV1.1
+RunTaskV1.2
 
 The Readme directions for each tool are below.
 
-Wallpaper Changer for SPS systems V8.5:
+Wallpaper Changer for SPS systems:
 
 	This script only changes the current wallpaper for the current user, on this PC only, IF YOU LOG INTO ANOTHER MACHINE, YOU WILL HAVE TO RUN
 	THIS SCRIPT AGAIN
@@ -53,7 +53,7 @@ Wallpaper Changer for SPS systems V8.5:
 
 End of WallpaperChanger Readme
 
-Realtime Task and Thread Viewer for SPS Systems V1.6
+Realtime Task and Thread Viewer for SPS Systems
 	
 	Fairly Self explanatory ugh i hate writing readmes
 
@@ -63,7 +63,7 @@ Realtime Task and Thread Viewer for SPS Systems V1.6
 	
 	Good luck
 
-Task Killer V1.4
+Task Killer
 	
 	Use this tool to Kill a task
 	Simply takes in one PID, found with the ID column in TaskViewer, or however else you want to do it,
@@ -73,7 +73,7 @@ Task Killer V1.4
 
 	Use the RunTask Command to restart something vital like Explorer.exe if you kill it on accident or whatever
 
-RunTask V1.1
+RunTask
 
 	Takes one single command or program and runs it then return to menu
 
