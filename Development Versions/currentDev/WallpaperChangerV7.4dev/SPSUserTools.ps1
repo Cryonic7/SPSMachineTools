@@ -118,7 +118,7 @@ while($done -eq $FALSE){
                     0 {
                         $ifconverted = ""
                         Write-Host "Initiating Changes..."
-                        $Drive = $PSScriptRoot
+                        $Drive = ($PSScriptRoot + "\")
                         Write-Host "`nUsing Current Directory...`n"
 
                         if ($filetype -ne ".bmp" ){
