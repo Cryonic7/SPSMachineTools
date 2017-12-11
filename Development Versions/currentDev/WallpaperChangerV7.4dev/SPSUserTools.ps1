@@ -231,22 +231,28 @@ while($done -eq $FALSE){
 
         #TELNET RUNNER START
         5 {
-        Write-Host "Enter an address to telnet to, or 'quit' to go back to the menu"
+        Write-Host "Enter an address to telnet to, or hit enter with an empty field to go back to the menu"
         Write-Host "`nCool places to go:`nvert.synchro.net - Base synchronet server vertrauen`nbbs.synchro.net - Other nodes for vertrauen, hosts DOOR games`ntowel.blinkenlights.nl - Star Wars in ASCII"
         $addressRaw = Read-Host -Prompt "Address"
         $address = $addressRaw + ":23"
         $tOP = "-telnet"
         $putty = "PuTTYPortable.exe"
-        $telnet = $putty + " " + $address
         $telnetPath = $PSScriptRoot + "\telnet\"
         $realputty = $telnetPath + $putty
-        &$realputty $tOP $address
+        &$realputty $tOP $addressRaw
         }
         #Telnet runner end
 
         #SSH RuNNER START
         6{
-
+        Write-Host "Enter an address"
+        $addressRaw = Read-Host -Prompt "Address"
+        $address = $addressRaw + ":22"
+        $sshOP = "-ssh"
+        $putty = "PuTTYPortable.exe"
+        $telnetPath = $PSScriptRoot + "\telnet\"
+        $realputty = $telnetPath + $putty
+        &$realputty $sshOP $address
         }
         #SSH RUNNER END
     }  
