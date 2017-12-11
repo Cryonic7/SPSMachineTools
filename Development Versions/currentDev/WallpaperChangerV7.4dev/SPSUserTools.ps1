@@ -52,6 +52,7 @@ while($done -eq $FALSE){
     ###TaskViewer (COMPLETE)
     ###TaskKiller (COMPLETE)
     ###RunTask (COMPLETE)
+    ##Telnet worker
 
     ##WebTrafficEncrypter
     
@@ -71,13 +72,16 @@ while($done -eq $FALSE){
     $Exit = New-Object System.Management.Automation.Host.ChoiceDescription "&Exit", `
     "Exits the script safely"
 
+    $Telnet = New-Object System.Management.Automation.Host.ChoiceDescription "Te&lnet", `
+    "Runs a telnet client for the requested address."
+
     #OPTIONS END
     #AUX OPTIONS
     $yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes"
     $no = New-Object System.Management.Automation.Host.ChoiceDescription "&No"
     $blank = " "
     #UI PROMPT BEGIN
-    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $TaskKiller, $GenericRuntask, $Exit)
+    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $TaskKiller, $GenericRuntask, $Exit, $Telnet)
 
     $result = $Host.UI.PromptForChoice($title, $message, $options, 0)
     #UI PROMPT END
@@ -216,9 +220,23 @@ while($done -eq $FALSE){
 
         #Exiting Script
         4 {
-        Write-Host "Thank you for using a Hypersleep Developments Tool, we wish you well in the future"
+        Write-Host "Thank you for using a CryoWare Developments Tool, we wish you well in the future"
         $done = $TRUE
         Break
         }
+        #exiting script done
+
+        #TELNET RUNNER START
+        5 {
+        Write-Host "Enter an address to telnet to, or 'quit' to go back to the menu"
+        $addressRaw = Read-Host -Prompt "Address"
+        $address = $addressRaw + ":23"
+        $putty = "PuTTYPortable.exe"
+        $telnet = $putty + " " + $address
+        $telnetPath = $PSScriptRoot + "\telnet\"
+        $realputty = $telnetPath + $putty
+        &$realputty
+        }
+        #Telnet runner end
     }  
 }
