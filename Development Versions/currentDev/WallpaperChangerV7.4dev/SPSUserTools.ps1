@@ -75,13 +75,16 @@ while($done -eq $FALSE){
     $Telnet = New-Object System.Management.Automation.Host.ChoiceDescription "Te&lnet", `
     "Runs a telnet client for the requested address."
 
+    $SSH = New-Object System.Management.Automation.Host.ChoiceDescription "&SSH", `
+    "Starts an SSH session for the requested address."
+
     #OPTIONS END
     #AUX OPTIONS
     $yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes"
     $no = New-Object System.Management.Automation.Host.ChoiceDescription "&No"
     $blank = " "
     #UI PROMPT BEGIN
-    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $TaskKiller, $GenericRuntask, $Exit, $Telnet)
+    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $TaskKiller, $GenericRuntask, $Exit, $Telnet, $SSH)
 
     $result = $Host.UI.PromptForChoice($title, $message, $options, 0)
     #UI PROMPT END
@@ -229,14 +232,22 @@ while($done -eq $FALSE){
         #TELNET RUNNER START
         5 {
         Write-Host "Enter an address to telnet to, or 'quit' to go back to the menu"
+        Write-Host "`nCool places to go:`nvert.synchro.net - Base synchronet server vertrauen`nbbs.synchro.net - Other nodes for vertrauen, hosts DOOR games`ntowel.blinkenlights.nl - Star Wars in ASCII"
         $addressRaw = Read-Host -Prompt "Address"
         $address = $addressRaw + ":23"
+        $tOP = "-telnet"
         $putty = "PuTTYPortable.exe"
         $telnet = $putty + " " + $address
         $telnetPath = $PSScriptRoot + "\telnet\"
         $realputty = $telnetPath + $putty
-        &$realputty $address
+        &$realputty $tOP $address
         }
         #Telnet runner end
+
+        #SSH RuNNER START
+        6{
+
+        }
+        #SSH RUNNER END
     }  
 }
