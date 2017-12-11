@@ -235,7 +235,7 @@ while($done -eq $FALSE){
         $telnet = $putty + " " + $address
         $telnetPath = $PSScriptRoot + "\telnet\"
         $realputty = $telnetPath + $putty
-        &$realputty
+        &$realputty $address
         }
         #Telnet runner end
     }  
