@@ -1,3 +1,5 @@
+It is possible this readme is not up to date. If it isn't and you need critical information, let me know at jaidon.preston@gmail.com
+
 SPS User Tools V1.8 includes:
 WallpaperChangerV8.7
 TaskViewerV1.7

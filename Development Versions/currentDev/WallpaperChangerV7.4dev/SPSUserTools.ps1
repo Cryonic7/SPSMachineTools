@@ -45,8 +45,8 @@ $done = $FALSE
 $ScriptDir = $PSScriptRoot
 while($done -eq $FALSE){
     #[console]::WindowTop
-    $title = "SPS User Tools V1.8"
-    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.5`nTaskViewer V1.7`nTaskKiller V1.8`nRuntask V1.1`nTelnet Daemon V1.6`nSSH Daemon V1.0`nCommand Prompt build 240`n`n"
+    $title = "SPS User Tools V2.1"
+    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.5`nTaskViewer V1.7`nTaskKiller V1.8`nRuntask V1.1`nTelnet Daemon V1.6`nSSH Daemon V1.1`nCommand Prompt build 240`n`n"
     ##options are:
     ###WallpaperChanger (COMPLETE)
     ###TaskViewer (COMPLETE)
