@@ -46,13 +46,15 @@ $ScriptDir = $PSScriptRoot
 while($done -eq $FALSE){
     #[console]::WindowTop
     $title = "SPS User Tools V1.8"
-    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.5`nTaskViewer V1.7`nTaskKiller V1.8`nRuntask V1.1`n`n"
+    $message = "`nThe tools included in this script are as follows:`nWallpaper Changer V8.5`nTaskViewer V1.7`nTaskKiller V1.8`nRuntask V1.1`nTelnet Daemon V1.6`nSSH Daemon V1.0`nCommand Prompt build 240`n`n"
     ##options are:
     ###WallpaperChanger (COMPLETE)
     ###TaskViewer (COMPLETE)
     ###TaskKiller (COMPLETE)
     ###RunTask (COMPLETE)
     ##Telnet worker
+    ##SSH worker
+    ##CMD shell
 
     ##WebTrafficEncrypter
     
@@ -78,13 +80,16 @@ while($done -eq $FALSE){
     $SSH = New-Object System.Management.Automation.Host.ChoiceDescription "&SSH", `
     "Starts an SSH session for the requested address."
 
+    $CommandPrompt = New-Object System.Management.Automation.Host.ChoiceDescription "&Command prompt", `
+    "Starts a custom command prompt shell."
+
     #OPTIONS END
     #AUX OPTIONS
     $yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes"
     $no = New-Object System.Management.Automation.Host.ChoiceDescription "&No"
     $blank = " "
     #UI PROMPT BEGIN
-    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $TaskKiller, $GenericRuntask, $Exit, $Telnet, $SSH)
+    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $TaskKiller, $GenericRuntask, $Exit, $Telnet, $SSH, $CommandPrompt)
 
     $result = $Host.UI.PromptForChoice($title, $message, $options, 0)
     #UI PROMPT END
@@ -217,43 +222,57 @@ while($done -eq $FALSE){
         3{
             Write-Host "This Selection runs one task or command once, It can often be used to rescue the system in case you kill Explorer.exe or other vital yet non-fatal programs."
             $RUNTASKCOMMAND = Read-Host -Prompt "Command"
-            & $RUNTASKCOMMAND
+            &$RUNTASKCOMMAND
         }
         #RUNTASK END
 
         #Exiting Script
         4 {
-        Write-Host "Thank you for using a CryoWare Developments Tool, we wish you well in the future"
-        $done = $TRUE
-        Break
+            Write-Host "Thank you for using a CryoWare Developments Tool, we wish you well in the future"
+            $done = $TRUE
+            Break
         }
         #exiting script done
 
         #TELNET RUNNER START
         5 {
-        Write-Host "Enter an address to telnet to, or hit enter with an empty field to go back to the menu"
-        Write-Host "`nCool places to go:`nvert.synchro.net - Base synchronet server vertrauen`nbbs.synchro.net - Other nodes for vertrauen, hosts DOOR games`ntowel.blinkenlights.nl - Star Wars in ASCII"
-        $addressRaw = Read-Host -Prompt "Address"
-        $address = $addressRaw + ":23"
-        $tOP = "-telnet"
-        $putty = "PuTTYPortable.exe"
-        $telnetPath = $PSScriptRoot + "\telnet\"
-        $realputty = $telnetPath + $putty
-        &$realputty $tOP $addressRaw
+            Write-Host "Enter an address to telnet to, or hit enter with an empty field to go back to the menu"
+            Write-Host "`nCool places to go:`nvert.synchro.net - Base synchronet server vertrauen`nbbs.synchro.net - Other nodes for vertrauen, hosts DOOR games`ntowel.blinkenlights.nl - Star Wars in ASCII"
+            $addressRaw = Read-Host -Prompt "Address"
+            $address = $addressRaw + ":23"
+            $tOP = "-telnet"
+            $putty = "PuTTYPortable.exe"
+            $telnetPath = $PSScriptRoot + "\telnet\"
+            $realputty = $telnetPath + $putty
+            &$realputty $tOP $addressRaw
         }
         #Telnet runner end
 
         #SSH RuNNER START
         6{
-        Write-Host "Enter an address"
-        $addressRaw = Read-Host -Prompt "Address"
-        $address = $addressRaw + ":22"
-        $sshOP = "-ssh"
-        $putty = "PuTTYPortable.exe"
-        $telnetPath = $PSScriptRoot + "\telnet\"
-        $realputty = $telnetPath + $putty
-        &$realputty $sshOP $address
+            Write-Host "Enter an address"
+            $addressRaw = Read-Host -Prompt "Address"
+            $address = $addressRaw + ":22"
+            $sshOP = "-ssh"
+            $putty = "PuTTYPortable.exe"
+            $telnetPath = $PSScriptRoot + "\telnet\"
+            $realputty = $telnetPath + $putty
+            &$realputty $sshOP $address
         }
         #SSH RUNNER END
+
+        #CMD Daemon Start
+        7{
+            Write-Host "Starting custom command prompt"
+            $location = $PSScriptRoot + "\command\"
+            $batch = "virtualcmd.bat"
+            $final = $location + $batch
+            $drive = $pwd.drive.Name
+            Add-Type -AssemblyName System.Windows.Forms
+            [System.Windows.Forms.SendKeys]::SendWait('cd ' + $drive + ":\" + "~");
+            [System.Windows.Forms.SendKeys]::SendWait('cls~');
+            &$final
+        }
+        #CMD Daemon END
     }  
 }
