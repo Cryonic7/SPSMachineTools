@@ -8,6 +8,11 @@ namespace Wallpaper
    {
        Tile, Center, Stretch, NoChange
    }
+   public class LSChanger {
+      public static void SetLockScreen ( string path,){
+         
+      }
+   }
    public class Setter {
       public const int SetDesktopWallpaper = 20;
       public const int UpdateIniFile = 0x01;
@@ -74,7 +79,7 @@ while($done -eq $FALSE){
     $Exit = New-Object System.Management.Automation.Host.ChoiceDescription "&Exit", `
     "Exits the script safely"
 
-    $Telnet = New-Object System.Management.Automation.Host.ChoiceDescription "Te&lnet", `
+    $Telnet = New-Object System.Management.Automation.Host.ChoiceDescription "Tel&net", `
     "Runs a telnet client for the requested address."
 
     $SSH = New-Object System.Management.Automation.Host.ChoiceDescription "&SSH", `
@@ -83,13 +88,16 @@ while($done -eq $FALSE){
     $CommandPrompt = New-Object System.Management.Automation.Host.ChoiceDescription "&Command prompt", `
     "Starts a custom command prompt shell."
 
+    $LockScreenChanger = New-Object System.Management.Automation.Host.ChoiceDescription "&LockScreen Changer", `
+    "Changes the user lockscreen."
+
     #OPTIONS END
     #AUX OPTIONS
     $yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes"
     $no = New-Object System.Management.Automation.Host.ChoiceDescription "&No"
     $blank = " "
     #UI PROMPT BEGIN
-    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $TaskKiller, $GenericRuntask, $Exit, $Telnet, $SSH, $CommandPrompt)
+    $options = [System.Management.Automation.Host.ChoiceDescription[]]($WallpaperChanger, $TaskViewer, $TaskKiller, $GenericRuntask, $Exit, $Telnet, $SSH, $CommandPrompt, $LockScreenChanger)
 
     $result = $Host.UI.PromptForChoice($title, $message, $options, 0)
     #UI PROMPT END
@@ -274,5 +282,24 @@ while($done -eq $FALSE){
             &$final
         }
         #CMD Daemon END
-    }  
-}
+
+        #LOCKSCREEN CHANGER START
+        8{
+            Write-Host "changing it to whatever to testyknow"
+            $fileLocation = $PSScriptRoot + "\PicturesLibrary\"
+            $file = "spaceman.jpg"
+            $image = $fileLocation + $file
+            $RegistryPath = "Kerasdf"
+            if (Test-Path -Path $RegistryPath)
+            {
+                Set-ItemProperty -Path $RegistryPath -Name LockScreenImage -Value $image
+            }
+            else
+            {
+                New-Item -Path $RegistryPath
+                New-ItemProperty -Path $RegistryPath -Name LockScreenImage -Value $image
+            }            
+        {
+        #LOCKSCREEN CHANGER END
+        }}}}
+    
