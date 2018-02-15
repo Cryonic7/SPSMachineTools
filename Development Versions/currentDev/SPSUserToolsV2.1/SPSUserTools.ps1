@@ -1,4 +1,13 @@
 ﻿Add-Type @"
+public class LSChanger
+{
+    public static void SetLockscreen(string path)
+    {
+        Windows.System.UserProfile.LockScreen.SetImageFileAsync(path);
+    }
+}
+"@
+Add-Type @"
 using System;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
@@ -7,11 +16,6 @@ namespace Wallpaper
    public enum Style : int
    {
        Tile, Center, Stretch, NoChange
-   }
-   public class LSChanger {
-      public static void SetLockScreen ( string path,){
-         
-      }
    }
    public class Setter {
       public const int SetDesktopWallpaper = 20;
@@ -113,8 +117,6 @@ while($done -eq $FALSE){
                 dir
                 cd ..
                 $file = Read-Host -Prompt "Filename"
-                #Write-Host "`nPlease type the file type, such as .jpg, .bmp, .png, etc`n"
-                #$filetype = Read-Host -Prompt "Filetype"
                 if(-not $file.Contains(".")){
                 Write-Host "Not a file, aborting..."
                 Break
@@ -167,13 +169,11 @@ while($done -eq $FALSE){
                         if (Test-Path $fullpath){
                             del $fullpath
                             xcopy ($FileFinal) $Drive /Y
-                            #robocopy $library $Drive ($filename + $filetype)
                             [Wallpaper.Setter]::SetWallpaper( $fullpath, 2 )
                             del $fullpath
                         }
                         if (-Not (Test-Path $fullpath)){
                             xcopy ($FileFinal) $Drive /Y
-                            #robocopy $library $Drive ($filename + $filetype)
                             [Wallpaper.Setter]::SetWallpaper( $fullpath, 2 )
                             del $fullpath
                         }
@@ -289,16 +289,7 @@ while($done -eq $FALSE){
             $fileLocation = $PSScriptRoot + "\PicturesLibrary\"
             $file = "spaceman.jpg"
             $image = $fileLocation + $file
-            $RegistryPath = "Kerasdf"
-            if (Test-Path -Path $RegistryPath)
-            {
-                Set-ItemProperty -Path $RegistryPath -Name LockScreenImage -Value $image
-            }
-            else
-            {
-                New-Item -Path $RegistryPath
-                New-ItemProperty -Path $RegistryPath -Name LockScreenImage -Value $image
-            }            
+            [LSChanger]::SetLockScreen($image)
         {
         #LOCKSCREEN CHANGER END
         }}}}
